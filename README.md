@@ -1,3 +1,5 @@
+[![Java CI with Gradle](https://github.com/SakaryaIbrahim/VocLearner/actions/workflows/ci.yml/badge.svg)](https://github.com/SakaryaIbrahim/VocLearner/actions/workflows/ci.yml)
+
 # VocLearner:
 - VocLearner soll eine Webanwendung sein, die es ermöglicht Vokabeln zu lernen, indem man sich zuerst „Lernzettel“ 
 erstellt und in diese die Vokabeln (mit ihrer Übersetzung) einträgt.
