@@ -8,6 +8,7 @@ class VocLearnerApplicationTests {
 
 	@Test
 	void contextLoads() {
+		throw new RuntimeException("only for test");
 	}
 
 }
