@@ -16,7 +16,7 @@ public class WortEntity {
     @Column(name = "sprache", nullable = false)
     private String sprache;
 
-   public WortEntity(String bezeichnung) {
+   public WortEntity(String bezeichnung, String sprache) {
         this.bezeichnung = bezeichnung;
         this.sprache = sprache;
     }

@@ -32,7 +32,7 @@ public class WortService {
     }
 
     public Wort create(WortManipulationRequest request) {
-        var wortEntity = new WortEntity(request.getBezeichnung());
+        var wortEntity = new WortEntity(request.getBezeichnung(), request.getSprache());
         wortEntity = wortRepository.save(wortEntity);
         return transformEntity(wortEntity);
     }
@@ -44,6 +44,7 @@ public class WortService {
         }
         var wortEntity = wortEntityOptional.get();
         wortEntity.setBezeichnung(request.getBezeichnung());
+        wortEntity.setSprache(request.getSprache());
         return transformEntity(wortEntity);
     }
 
