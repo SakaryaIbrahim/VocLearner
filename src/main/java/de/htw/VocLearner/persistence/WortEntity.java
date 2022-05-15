@@ -58,6 +58,6 @@ public class WortEntity {
     }
 
     public void add(UebersetzungEntity uebersetzungEntity){
-       uebersetzungEntities.add(uebersetzungEntity);
+       if(!uebersetzungEntities.contains(uebersetzungEntity)) uebersetzungEntities.add(uebersetzungEntity);
     }
 }
