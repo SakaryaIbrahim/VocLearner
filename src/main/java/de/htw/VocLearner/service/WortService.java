@@ -1,0 +1,45 @@
+package de.htw.VocLearner.service;
+
+import de.htw.VocLearner.persistence.WortEntity;
+import de.htw.VocLearner.persistence.WortRepository;
+import de.htw.VocLearner.web.api.Wort;
+import de.htw.VocLearner.web.api.WortCreateRequest;
+import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+public class WortService {
+
+    private final WortRepository wortRepository;
+
+    public WortService(WortRepository wortRepository) {
+        this.wortRepository = wortRepository;
+    }
+
+    public List<Wort> findAll() {
+        List<WortEntity> words = wortRepository.findAll();
+        return words.stream()
+                .map(this::transformEntity)
+                .collect(Collectors.toList());
+    }
+
+    public Wort findById(Long id) {
+        var wortEntity = wortRepository.findById(id);
+        return wortEntity.map(this::transformEntity).orElse(null);
+    }
+
+    public Wort create(WortCreateRequest request) {
+        var wortEntity = new WortEntity(request.getBezeichnung());
+        wortEntity = wortRepository.save(wortEntity);
+        return transformEntity(wortEntity);
+    }
+
+    private Wort transformEntity(WortEntity wortEntity) {
+        return new Wort(
+                wortEntity.getId(),
+                wortEntity.getBezeichnung()
+        );
+    }
+}
+

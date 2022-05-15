@@ -13,8 +13,7 @@ public class WortEntity {
     @Column(name = "bezeichnung", nullable = false)
     private String bezeichnung;
 
-   public WortEntity(Long id, String bezeichnung) {
-        this.id = id;
+   public WortEntity(String bezeichnung) {
         this.bezeichnung = bezeichnung;
     }
 

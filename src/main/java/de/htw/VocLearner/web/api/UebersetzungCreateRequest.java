@@ -1,39 +1,17 @@
-package de.htw.VocLearner.persistence;
+package de.htw.VocLearner.web.api;
 
-import javax.persistence.*;
+public class UebersetzungCreateRequest {
 
-@Entity(name = "Uebersetzung")
-public class UebersetzungEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private long id;
-
-    @Column(name = "uebersetzung", nullable = false)
     private String uebersetzung;
-
-    @Column(name = "wort_Fk", nullable = false)
     private long wort_Fk;
-
-    @Column(name = "sprache", nullable = false)
     private String sprache;
-
-    @Column(name = "wahrscheinlichkeit", nullable = false)
     private float wahrscheinlichkeit;
 
-    public UebersetzungEntity(String uebersetzung, long wort_Fk, String sprache, float wahrscheinlichkeit) {
+    public UebersetzungCreateRequest(String uebersetzung, long wort_Fk, String sprache, float wahrscheinlichkeit) {
         this.uebersetzung = uebersetzung;
         this.wort_Fk = wort_Fk;
         this.sprache = sprache;
         this.wahrscheinlichkeit = wahrscheinlichkeit;
-    }
-
-    protected UebersetzungEntity(){
-    }
-
-    public long getId() {
-        return id;
     }
 
     public String getUebersetzung() {
@@ -67,4 +45,5 @@ public class UebersetzungEntity {
     public void setWahrscheinlichkeit(float wahrscheinlichkeit) {
         this.wahrscheinlichkeit = wahrscheinlichkeit;
     }
+
 }
