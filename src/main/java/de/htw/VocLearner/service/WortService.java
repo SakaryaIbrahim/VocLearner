@@ -2,8 +2,10 @@ package de.htw.VocLearner.service;
 
 import de.htw.VocLearner.persistence.WortEntity;
 import de.htw.VocLearner.persistence.WortRepository;
+import de.htw.VocLearner.web.api.Uebersetzung;
+import de.htw.VocLearner.web.api.UebersetzungManipulationRequest;
 import de.htw.VocLearner.web.api.Wort;
-import de.htw.VocLearner.web.api.WortCreateRequest;
+import de.htw.VocLearner.web.api.WortManipulationRequest;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,9 +31,19 @@ public class WortService {
         return wortEntity.map(this::transformEntity).orElse(null);
     }
 
-    public Wort create(WortCreateRequest request) {
+    public Wort create(WortManipulationRequest request) {
         var wortEntity = new WortEntity(request.getBezeichnung());
         wortEntity = wortRepository.save(wortEntity);
+        return transformEntity(wortEntity);
+    }
+
+    public Wort update(Long id, WortManipulationRequest request) {
+        var wortEntityOptional = wortRepository.findById(id);
+        if (wortEntityOptional.isEmpty()) {
+            return null;
+        }
+        var wortEntity = wortEntityOptional.get();
+        wortEntity.setBezeichnung(request.getBezeichnung());
         return transformEntity(wortEntity);
     }
 

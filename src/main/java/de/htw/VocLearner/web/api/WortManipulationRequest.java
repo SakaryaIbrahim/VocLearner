@@ -1,10 +1,10 @@
 package de.htw.VocLearner.web.api;
 
-public class WortCreateRequest {
+public class WortManipulationRequest {
 
     private String bezeichnung;
 
-    public WortCreateRequest(String bezeichnung) {
+    public WortManipulationRequest(String bezeichnung) {
         this.bezeichnung = bezeichnung;
     }
 

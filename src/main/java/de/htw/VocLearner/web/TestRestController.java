@@ -1,14 +1,11 @@
 package de.htw.VocLearner.web;
 
-import de.htw.VocLearner.persistence.UebersetzungRepository;
-import de.htw.VocLearner.persistence.WortEntity;
 import de.htw.VocLearner.service.UebersetzungService;
 import de.htw.VocLearner.service.WortService;
 import de.htw.VocLearner.web.api.Uebersetzung;
-import de.htw.VocLearner.web.api.UebersetzungCreateRequest;
+import de.htw.VocLearner.web.api.UebersetzungManipulationRequest;
 import de.htw.VocLearner.web.api.Wort;
-import de.htw.VocLearner.web.api.WortCreateRequest;
-import org.apache.coyote.Response;
+import de.htw.VocLearner.web.api.WortManipulationRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,7 +36,7 @@ public class TestRestController {
     public ResponseEntity<List<Uebersetzung>> fetchUebersetzungen(){ return ResponseEntity.ok(uebersetzungService.findAll()); }
 
     @PostMapping(path = "/api/v1/words")
-    public ResponseEntity<Void> createWord(@RequestBody WortCreateRequest request) throws URISyntaxException {
+    public ResponseEntity<Void> createWord(@RequestBody WortManipulationRequest request) throws URISyntaxException {
         var wort = wortService.create(request);
         URI uri = new URI("/api/v1/words/" + wort.getId());
         return ResponseEntity.created(uri).build();
@@ -51,8 +48,14 @@ public class TestRestController {
         return wort != null? ResponseEntity.ok(wort) : ResponseEntity.notFound().build();
     }
 
+    @PutMapping(path = "/api/v1/words/{id}")
+    public ResponseEntity<Wort> updateWort(@PathVariable Long id, @RequestBody WortManipulationRequest request) {
+        var wort = wortService.update(id, request);
+        return wort != null? ResponseEntity.ok(wort) : ResponseEntity.notFound().build();
+    }
+
     @PostMapping(path = "/api/v1/uebersetzungen")
-    public ResponseEntity<Void> createUebersetzung(@RequestBody UebersetzungCreateRequest request) throws URISyntaxException {
+    public ResponseEntity<Void> createUebersetzung(@RequestBody UebersetzungManipulationRequest request) throws URISyntaxException {
         var uebersetzung = uebersetzungService.create(request);
         URI uri = new URI("/api/v1/uebersetzungen/" + uebersetzung.getId());
         return ResponseEntity.created(uri).build();
@@ -61,6 +64,12 @@ public class TestRestController {
     @GetMapping(path = "/api/v1/uebersetzungen/{id}")
     public ResponseEntity<Uebersetzung> fetchUebersetzungById(@PathVariable Long id) {
         var uebersetzung = uebersetzungService.findById(id);
+        return uebersetzung != null? ResponseEntity.ok(uebersetzung) : ResponseEntity.notFound().build();
+    }
+
+    @PutMapping(path = "/api/v1/uebersetzungen/{id}")
+    public ResponseEntity<Uebersetzung> updateUebersetzung(@PathVariable Long id, @RequestBody UebersetzungManipulationRequest request) {
+        var uebersetzung = uebersetzungService.update(id, request);
         return uebersetzung != null? ResponseEntity.ok(uebersetzung) : ResponseEntity.notFound().build();
     }
 

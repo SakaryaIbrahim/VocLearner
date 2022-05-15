@@ -2,11 +2,8 @@ package de.htw.VocLearner.service;
 
 import de.htw.VocLearner.persistence.UebersetzungEntity;
 import de.htw.VocLearner.persistence.UebersetzungRepository;
-import de.htw.VocLearner.persistence.WortEntity;
 import de.htw.VocLearner.web.api.Uebersetzung;
-import de.htw.VocLearner.web.api.UebersetzungCreateRequest;
-import de.htw.VocLearner.web.api.Wort;
-import de.htw.VocLearner.web.api.WortCreateRequest;
+import de.htw.VocLearner.web.api.UebersetzungManipulationRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,9 +30,23 @@ public class UebersetzungService {
         return uebersetzungEntity.map(this::transformEntity).orElse(null);
     }
 
-    public Uebersetzung create(UebersetzungCreateRequest request) {
+    public Uebersetzung create(UebersetzungManipulationRequest request) {
         var uebersetzungEntity = new UebersetzungEntity(request.getUebersetzung(), request.getWort_Fk(),
                 request.getSprache(), request.getWahrscheinlichkeit());
+        uebersetzungEntity = uebersetzungRepository.save(uebersetzungEntity);
+        return transformEntity(uebersetzungEntity);
+    }
+
+    public Uebersetzung update(Long id, UebersetzungManipulationRequest request) {
+        var uebersetzungEntityOptional = uebersetzungRepository.findById(id);
+        if (uebersetzungEntityOptional.isEmpty()) {
+            return null;
+        }
+        var uebersetzungEntity = uebersetzungEntityOptional.get();
+        uebersetzungEntity.setUebersetzung(request.getUebersetzung());
+        uebersetzungEntity.setSprache(request.getSprache());
+        uebersetzungEntity.setWahrscheinlichkeit(request.getWahrscheinlichkeit());
+        uebersetzungEntity.setWort_Fk(request.getWort_Fk());
         uebersetzungEntity = uebersetzungRepository.save(uebersetzungEntity);
         return transformEntity(uebersetzungEntity);
     }

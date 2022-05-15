@@ -1,13 +1,13 @@
 package de.htw.VocLearner.web.api;
 
-public class UebersetzungCreateRequest {
+public class UebersetzungManipulationRequest {
 
     private String uebersetzung;
     private long wort_Fk;
     private String sprache;
     private float wahrscheinlichkeit;
 
-    public UebersetzungCreateRequest(String uebersetzung, long wort_Fk, String sprache, float wahrscheinlichkeit) {
+    public UebersetzungManipulationRequest(String uebersetzung, long wort_Fk, String sprache, float wahrscheinlichkeit) {
         this.uebersetzung = uebersetzung;
         this.wort_Fk = wort_Fk;
         this.sprache = sprache;
