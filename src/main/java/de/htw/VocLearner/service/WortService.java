@@ -58,7 +58,8 @@ public class WortService {
     private Wort transformEntity(WortEntity wortEntity) {
         return new Wort(
                 wortEntity.getId(),
-                wortEntity.getBezeichnung()
+                wortEntity.getBezeichnung(),
+                wortEntity.getSprache()
         );
     }
 }

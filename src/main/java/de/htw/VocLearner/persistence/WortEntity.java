@@ -13,8 +13,12 @@ public class WortEntity {
     @Column(name = "bezeichnung", nullable = false)
     private String bezeichnung;
 
+    @Column(name = "sprache", nullable = false)
+    private String sprache;
+
    public WortEntity(String bezeichnung) {
         this.bezeichnung = bezeichnung;
+        this.sprache = sprache;
     }
 
     protected WortEntity(){
@@ -32,4 +36,7 @@ public class WortEntity {
         this.bezeichnung = bezeichnung;
     }
 
+    public String getSprache() { return sprache; }
+
+    public void setSprache(String sprache) { this.sprache = sprache; }
 }

@@ -4,10 +4,12 @@ public class Wort {
 
     private long id;
     private String bezeichnung;
+    private String sprache;
 
-    public Wort(long id, String bezeichnung) {
+    public Wort(long id, String bezeichnung, String sprache) {
         this.id = id;
         this.bezeichnung = bezeichnung;
+        this.sprache = sprache;
     }
 
     public long getId() {
@@ -26,4 +28,11 @@ public class Wort {
         this.bezeichnung = bezeichnung;
     }
 
+    public String getSprache() {
+        return sprache;
+    }
+
+    public void setSprache(String sprache) {
+        this.sprache = sprache;
+    }
 }
