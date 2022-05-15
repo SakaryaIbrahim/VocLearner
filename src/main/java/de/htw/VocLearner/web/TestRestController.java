@@ -54,6 +54,12 @@ public class TestRestController {
         return wort != null? ResponseEntity.ok(wort) : ResponseEntity.notFound().build();
     }
 
+    @DeleteMapping(path = "/api/v1/words/{id}")
+    public ResponseEntity<Void> deleteWort(@PathVariable Long id) {
+        boolean successful = wortService.deleteById(id);
+        return successful? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
+    }
+
     @PostMapping(path = "/api/v1/uebersetzungen")
     public ResponseEntity<Void> createUebersetzung(@RequestBody UebersetzungManipulationRequest request) throws URISyntaxException {
         var uebersetzung = uebersetzungService.create(request);
@@ -73,5 +79,10 @@ public class TestRestController {
         return uebersetzung != null? ResponseEntity.ok(uebersetzung) : ResponseEntity.notFound().build();
     }
 
+    @DeleteMapping(path = "/api/v1/uebersetzungen/{id}")
+    public ResponseEntity<Void> deleteUebersetzung(@PathVariable Long id) {
+        boolean successful = uebersetzungService.deleteById(id);
+        return successful? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
+    }
 }
 

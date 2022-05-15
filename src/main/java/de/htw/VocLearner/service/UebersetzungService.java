@@ -51,6 +51,14 @@ public class UebersetzungService {
         return transformEntity(uebersetzungEntity);
     }
 
+    public boolean deleteById(Long id) {
+        if (!uebersetzungRepository.existsById(id)) {
+            return false;
+        }
+        uebersetzungRepository.deleteById(id);
+        return true;
+    }
+
     private Uebersetzung transformEntity(UebersetzungEntity uebersetzungEntity) {
         return new Uebersetzung(
                 uebersetzungEntity.getId(),

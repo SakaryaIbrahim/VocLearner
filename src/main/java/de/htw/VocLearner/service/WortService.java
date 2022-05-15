@@ -47,6 +47,14 @@ public class WortService {
         return transformEntity(wortEntity);
     }
 
+    public boolean deleteById(Long id) {
+        if (!wortRepository.existsById(id)) {
+            return false;
+        }
+        wortRepository.deleteById(id);
+        return true;
+    }
+
     private Wort transformEntity(WortEntity wortEntity) {
         return new Wort(
                 wortEntity.getId(),
