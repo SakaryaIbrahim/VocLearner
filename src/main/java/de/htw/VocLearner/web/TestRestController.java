@@ -2,10 +2,7 @@ package de.htw.VocLearner.web;
 
 import de.htw.VocLearner.service.UebersetzungService;
 import de.htw.VocLearner.service.WortService;
-import de.htw.VocLearner.web.api.Uebersetzung;
-import de.htw.VocLearner.web.api.UebersetzungManipulationRequest;
-import de.htw.VocLearner.web.api.Wort;
-import de.htw.VocLearner.web.api.WortManipulationRequest;
+import de.htw.VocLearner.web.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class TestRestController {
@@ -84,5 +82,22 @@ public class TestRestController {
         boolean successful = uebersetzungService.deleteById(id);
         return successful? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
     }
+
+    @PostMapping(path = "api/v1/wordtranslation")
+    public ResponseEntity<Void> insertNewInfoIntoDb(@RequestBody WordTranslation wordTranslation){
+        return  null;
+    }
+
+    @DeleteMapping(path = "api/v1/wordtranslation")
+    public ResponseEntity<Void> deleteSomeWordsFromDb(@RequestBody Wort wort){
+        return null;
+    }
+
+    @GetMapping(path = "api/v1/test/knowledge")
+    public Map<Wort,Uebersetzung> getTenWordsFromDb(){
+        return null;
+    }
+
+
 }
 

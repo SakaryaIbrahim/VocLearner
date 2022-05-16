@@ -22,9 +22,9 @@ public class UebersetzungEntity {
     @Column(name = "wahrscheinlichkeit", nullable = false)
     private float wahrscheinlichkeit;
 
-    public UebersetzungEntity(String uebersetzung, long wort_Fk, String sprache, float wahrscheinlichkeit) {
+    public UebersetzungEntity(String uebersetzung, String sprache, float wahrscheinlichkeit) {
         this.uebersetzung = uebersetzung;
-        this.wort_Fk = wort_Fk;
+        //this.wort_Fk = wort_Fk;
         this.sprache = sprache;
         this.wahrscheinlichkeit = wahrscheinlichkeit;
     }
