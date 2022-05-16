@@ -1,6 +1,8 @@
 package de.htw.VocLearner.web;
 
+import de.htw.VocLearner.persistence.WortEntity;
 import de.htw.VocLearner.service.UebersetzungService;
+import de.htw.VocLearner.service.WordTranslationService;
 import de.htw.VocLearner.service.WortService;
 import de.htw.VocLearner.web.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,8 @@ public class TestRestController {
     WortService wortService;
     @Autowired
     UebersetzungService uebersetzungService;
+    @Autowired
+    WordTranslationService wordTranslationService;
 
     public TestRestController(WortService wortService, UebersetzungService uebersetzungService) {
         this.wortService = wortService;
@@ -31,7 +35,9 @@ public class TestRestController {
     }
 
     @GetMapping(path = "/api/v1/uebersetzungen")
-    public ResponseEntity<List<Uebersetzung>> fetchUebersetzungen(){ return ResponseEntity.ok(uebersetzungService.findAll()); }
+    public ResponseEntity<List<Uebersetzung>> fetchUebersetzungen() {
+        return ResponseEntity.ok(uebersetzungService.findAll());
+    }
 
     @PostMapping(path = "/api/v1/words")
     public ResponseEntity<Void> createWord(@RequestBody WortManipulationRequest request) throws URISyntaxException {
@@ -43,19 +49,19 @@ public class TestRestController {
     @GetMapping(path = "/api/v1/words/{id}")
     public ResponseEntity<Wort> fetchWordById(@PathVariable Long id) {
         var wort = wortService.findById(id);
-        return wort != null? ResponseEntity.ok(wort) : ResponseEntity.notFound().build();
+        return wort != null ? ResponseEntity.ok(wort) : ResponseEntity.notFound().build();
     }
 
     @PutMapping(path = "/api/v1/words/{id}")
     public ResponseEntity<Wort> updateWort(@PathVariable Long id, @RequestBody WortManipulationRequest request) {
         var wort = wortService.update(id, request);
-        return wort != null? ResponseEntity.ok(wort) : ResponseEntity.notFound().build();
+        return wort != null ? ResponseEntity.ok(wort) : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping(path = "/api/v1/words/{id}")
     public ResponseEntity<Void> deleteWort(@PathVariable Long id) {
         boolean successful = wortService.deleteById(id);
-        return successful? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
+        return successful ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
     }
 
     @PostMapping(path = "/api/v1/uebersetzungen")
@@ -68,36 +74,32 @@ public class TestRestController {
     @GetMapping(path = "/api/v1/uebersetzungen/{id}")
     public ResponseEntity<Uebersetzung> fetchUebersetzungById(@PathVariable Long id) {
         var uebersetzung = uebersetzungService.findById(id);
-        return uebersetzung != null? ResponseEntity.ok(uebersetzung) : ResponseEntity.notFound().build();
+        return uebersetzung != null ? ResponseEntity.ok(uebersetzung) : ResponseEntity.notFound().build();
     }
 
     @PutMapping(path = "/api/v1/uebersetzungen/{id}")
     public ResponseEntity<Uebersetzung> updateUebersetzung(@PathVariable Long id, @RequestBody UebersetzungManipulationRequest request) {
         var uebersetzung = uebersetzungService.update(id, request);
-        return uebersetzung != null? ResponseEntity.ok(uebersetzung) : ResponseEntity.notFound().build();
+        return uebersetzung != null ? ResponseEntity.ok(uebersetzung) : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping(path = "/api/v1/uebersetzungen/{id}")
     public ResponseEntity<Void> deleteUebersetzung(@PathVariable Long id) {
         boolean successful = uebersetzungService.deleteById(id);
-        return successful? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
+        return successful ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
     }
 
     @PostMapping(path = "api/v1/wordtranslation")
-    public ResponseEntity<Void> insertNewInfoIntoDb(@RequestBody WordTranslation wordTranslation){
-        return  null;
+    public ResponseEntity<WortEntity> insertNewInfoIntoDb(@RequestBody WordTranslation wordTranslation) {
+        WortEntity newWordTran = wordTranslationService.saveWordAndTranslation(wordTranslation);
+        return newWordTran != null ? ResponseEntity.ok(newWordTran) : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping(path = "api/v1/wordtranslation")
-    public ResponseEntity<Void> deleteSomeWordsFromDb(@RequestBody Wort wort){
+    public ResponseEntity<Void> deleteSomeWordsFromDb(@RequestBody Wort wort) {
+        wordTranslationService.deleteWordAndTranslation(wort);
         return null;
     }
-
-    @GetMapping(path = "api/v1/test/knowledge")
-    public Map<Wort,Uebersetzung> getTenWordsFromDb(){
-        return null;
-    }
-
 
 }
 

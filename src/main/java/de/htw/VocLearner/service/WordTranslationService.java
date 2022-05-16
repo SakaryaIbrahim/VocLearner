@@ -14,12 +14,11 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
-@NamedQueries({
-        @NamedQuery(name = "WortEntity.deleteByName", query = "delete from Wort where bezeichnung = ?1"),
-        @NamedQuery(name = "WortEntity.findTenWords", query = "select from Wort limit 10"),
-})
+@NamedQuery(name = "WortEntity.deleteByName", query = "delete from Wort where bezeichnung = ?1")
+public
 class WordTranslationService {
 
     @Autowired
@@ -34,23 +33,32 @@ class WordTranslationService {
     }
 
     //insert word and its translation into database
-    public String saveWordAndTranslation(WordTranslation wordTranslation){
+    public WortEntity saveWordAndTranslation(WordTranslation wordTranslation){
         var wort = new WortEntity(wordTranslation.getWord(),wordTranslation.getLanguage());
         var translation = new UebersetzungEntity(wordTranslation.getTanslation(),wordTranslation.getTranLanguage(),1);
         wort.add(translation);
-        wortRepository.save(wort);
-        return results.SUCCESS.toString();
+        return wortRepository.save(wort);
+
     }
 
     //delete the word und its transtaltions from our database
-    public String deleteWordAndTranslation(Wort wort){
+    public void deleteWordAndTranslation(Wort wort){
         wortRepository.deleteByName(wort.getBezeichnung());
-        return results.SUCCESS.toString();
     }
 
     //fetch ten words and their translation
     public List<Wort> fetchWordsFromDatabase(int factor) {
-        List<Wort> data = WortRepository.findTenWords(factor);
-        return data;
+        List<WortEntity> WordsForGame = wortRepository.findAll();
+        return WordsForGame.stream()
+                .map(this::transformEntity).
+                collect(Collectors.toList());
+    }
+
+    private Wort transformEntity(WortEntity wortEntity) {
+        return new Wort(
+                wortEntity.getId(),
+                wortEntity.getBezeichnung(),
+                wortEntity.getSprache()
+        );
     }
 }
