@@ -96,9 +96,8 @@ public class TestRestController {
     }
 
     @DeleteMapping(path = "api/v1/wordtranslation")
-    public ResponseEntity<Void> deleteSomeWordsFromDb(@RequestBody Wort wort) {
-        wordTranslationService.deleteWordAndTranslation(wort);
-        return null;
+    public void deleteSomeWordsFromDb(@RequestBody String wort) {
+         wordTranslationService.deleteWordAndTranslation(wort);
     }
 
 }

@@ -3,14 +3,14 @@ package de.htw.VocLearner.web.api;
 public class WordTranslation {
     private String word ;
     private String language ;
-    private String tanslation ;
-    private String tranLanguage;
+    private String translation ;
+    private String transLanguage;
 
-    public WordTranslation(String word, String language, String tanslation, String tranLanguage) {
+    public WordTranslation(String word, String language, String translation, String transLanguage) {
         this.word = word;
         this.language = language;
-        this.tanslation = tanslation;
-        this.tranLanguage = tranLanguage;
+        this.translation = translation;
+        this.transLanguage = transLanguage;
     }
 
     public String getWord() {
@@ -29,19 +29,19 @@ public class WordTranslation {
         this.language = language;
     }
 
-    public String getTanslation() {
-        return tanslation;
+    public String getTranslation() {
+        return translation;
     }
 
-    public void setTanslation(String tanslation) {
-        this.tanslation = tanslation;
+    public void setTranslation(String translation) {
+        this.translation = translation;
     }
 
-    public String getTranLanguage() {
-        return tranLanguage;
+    public String getTransLanguage() {
+        return transLanguage;
     }
 
-    public void setTranLanguage(String tranLanguage) {
-        this.tranLanguage = tranLanguage;
+    public void setTransLanguage(String transLanguage) {
+        this.transLanguage = transLanguage;
     }
 }

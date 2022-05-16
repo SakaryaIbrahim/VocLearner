@@ -1,5 +1,7 @@
 package de.htw.VocLearner.persistence;
 
+import de.htw.VocLearner.web.api.WordTranslation;
+
 import javax.persistence.*;
 
 @Entity(name = "Uebersetzung")
@@ -13,18 +15,18 @@ public class UebersetzungEntity {
     @Column(name = "uebersetzung", nullable = false)
     private String uebersetzung;
 
-    //@Column(name = "wort_Fk", nullable = false)
-    //private long wort_Fk;
-
     @Column(name = "sprache", nullable = false)
     private String sprache;
 
     @Column(name = "wahrscheinlichkeit", nullable = false)
     private float wahrscheinlichkeit;
 
+    //@ManyToOne(fetch = FetchType.LAZY)
+    //@JoinColumn(name = "word_fk")
+    //private WortEntity wortEntity;
+
     public UebersetzungEntity(String uebersetzung, String sprache, float wahrscheinlichkeit) {
         this.uebersetzung = uebersetzung;
-        //this.wort_Fk = wort_Fk;
         this.sprache = sprache;
         this.wahrscheinlichkeit = wahrscheinlichkeit;
     }
@@ -60,4 +62,6 @@ public class UebersetzungEntity {
     public void setWahrscheinlichkeit(float wahrscheinlichkeit) {
         this.wahrscheinlichkeit = wahrscheinlichkeit;
     }
+
+
 }

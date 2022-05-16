@@ -2,6 +2,7 @@ package de.htw.VocLearner.service;
 
 
 import de.htw.VocLearner.persistence.UebersetzungEntity;
+import de.htw.VocLearner.persistence.UebersetzungRepository;
 import de.htw.VocLearner.persistence.WortEntity;
 import de.htw.VocLearner.persistence.WortRepository;
 import de.htw.VocLearner.web.api.Uebersetzung;
@@ -17,31 +18,29 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-@NamedQuery(name = "WortEntity.deleteByName", query = "delete from Wort where bezeichnung = ?1")
+
 public
 class WordTranslationService {
 
-    @Autowired
-    WortRepository wortRepository;
+    private final WortRepository wortRepository;
 
-    @Autowired
-    UebersetzungService uebersetzungService;
-
+    public WordTranslationService(WortRepository wortRepository) {
+        this.wortRepository = wortRepository;
+    }
 
 
     //insert word and its translation into database
     public WortEntity saveWordAndTranslation(WordTranslation wordTranslation){
         var wort = new WortEntity(wordTranslation.getWord(),wordTranslation.getLanguage());
-        var translation = new UebersetzungEntity(wordTranslation.getTanslation(),wordTranslation.getTranLanguage(),1);
+        var translation = new UebersetzungEntity(wordTranslation.getTranslation(),wordTranslation.getTransLanguage(),1.0f);
         wort.add(translation);
         return wortRepository.save(wort);
 
     }
 
     //delete the word und its transtaltions from our database
-    public void deleteWordAndTranslation(Wort wort){
-
-        wortRepository.deleteByName(wort.getBezeichnung());
+    public void deleteWordAndTranslation(String wort){
+        wortRepository.deleteByName(wort);
     }
 
     //fetch ten words and their translation

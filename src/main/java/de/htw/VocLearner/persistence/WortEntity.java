@@ -1,6 +1,7 @@
 package de.htw.VocLearner.persistence;
 
 import de.htw.VocLearner.web.api.Uebersetzung;
+import jdk.jfr.Name;
 
 import javax.persistence.*;
 import java.util.HashMap;
@@ -21,7 +22,8 @@ public class WortEntity {
     @Column(name = "sprache", nullable = false)
     private String sprache;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,orphanRemoval = true)
+    @JoinColumn(name = "wortEntity_id",referencedColumnName = "id")
     private Set<UebersetzungEntity> uebersetzungEntities = new HashSet<>();
 
 
