@@ -12,7 +12,7 @@ public class UebersetzungEntity {
     @Column(name = "id")
     private long id;
 
-    @Column(name = "uebersetzung", nullable = false)
+    @Column(name = "uebersetzung", nullable = false,unique = true)
     private String uebersetzung;
 
     @Column(name = "sprache", nullable = false)
@@ -21,9 +21,6 @@ public class UebersetzungEntity {
     @Column(name = "wahrscheinlichkeit", nullable = false)
     private float wahrscheinlichkeit;
 
-    //@ManyToOne(fetch = FetchType.LAZY)
-    //@JoinColumn(name = "word_fk")
-    //private WortEntity wortEntity;
 
     public UebersetzungEntity(String uebersetzung, String sprache, float wahrscheinlichkeit) {
         this.uebersetzung = uebersetzung;

@@ -16,7 +16,7 @@ public class WortEntity {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "bezeichnung", nullable = false)
+    @Column(name = "bezeichnung", nullable = false,unique = true)
     private String bezeichnung;
 
     @Column(name = "sprache", nullable = false)
