@@ -13,8 +13,8 @@ public class UebersetzungEntity {
     @Column(name = "uebersetzung", nullable = false)
     private String uebersetzung;
 
-    @Column(name = "wort_Fk", nullable = false)
-    private long wort_Fk;
+    //@Column(name = "wort_Fk", nullable = false)
+    //private long wort_Fk;
 
     @Column(name = "sprache", nullable = false)
     private String sprache;
@@ -44,13 +44,6 @@ public class UebersetzungEntity {
         this.uebersetzung = uebersetzung;
     }
 
-    public long getWort_Fk() {
-        return wort_Fk;
-    }
-
-    public void setWort_Fk(long wort_Fk) {
-        this.wort_Fk = wort_Fk;
-    }
 
     public String getSprache() {
         return sprache;

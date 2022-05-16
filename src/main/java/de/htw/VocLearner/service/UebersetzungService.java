@@ -31,7 +31,7 @@ public class UebersetzungService {
     }
 
     public Uebersetzung create(UebersetzungManipulationRequest request) {
-        var uebersetzungEntity = new UebersetzungEntity(request.getUebersetzung(), request.getWort_Fk(),
+        var uebersetzungEntity = new UebersetzungEntity(request.getUebersetzung(),
                 request.getSprache(), request.getWahrscheinlichkeit());
         uebersetzungEntity = uebersetzungRepository.save(uebersetzungEntity);
         return transformEntity(uebersetzungEntity);
@@ -46,7 +46,6 @@ public class UebersetzungService {
         uebersetzungEntity.setUebersetzung(request.getUebersetzung());
         uebersetzungEntity.setSprache(request.getSprache());
         uebersetzungEntity.setWahrscheinlichkeit(request.getWahrscheinlichkeit());
-        uebersetzungEntity.setWort_Fk(request.getWort_Fk());
         uebersetzungEntity = uebersetzungRepository.save(uebersetzungEntity);
         return transformEntity(uebersetzungEntity);
     }
@@ -63,7 +62,6 @@ public class UebersetzungService {
         return new Uebersetzung(
                 uebersetzungEntity.getId(),
                 uebersetzungEntity.getUebersetzung(),
-                uebersetzungEntity.getWort_Fk(),
                 uebersetzungEntity.getSprache(),
                 uebersetzungEntity.getWahrscheinlichkeit()
         );

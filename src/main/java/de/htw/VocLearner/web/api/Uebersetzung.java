@@ -4,14 +4,12 @@ public class Uebersetzung {
 
     private long id;
     private String uebersetzung;
-    private long wort_Fk;
     private String sprache;
     private float wahrscheinlichkeit;
 
-    public Uebersetzung(long id, String uebersetzung, long wort_Fk, String sprache, float wahrscheinlichkeit) {
+    public Uebersetzung(long id, String uebersetzung, String sprache, float wahrscheinlichkeit) {
         this.id = id;
         this.uebersetzung = uebersetzung;
-        this.wort_Fk = wort_Fk;
         this.sprache = sprache;
         this.wahrscheinlichkeit = wahrscheinlichkeit;
     }
@@ -32,13 +30,6 @@ public class Uebersetzung {
         this.uebersetzung = uebersetzung;
     }
 
-    public long getWort_Fk() {
-        return wort_Fk;
-    }
-
-    public void setWort_Fk(long wort_Fk) {
-        this.wort_Fk = wort_Fk;
-    }
 
     public String getSprache() {
         return sprache;

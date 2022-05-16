@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface WortRepository extends JpaRepository<WortEntity, Long> {
-    void deleteByName(String word);
+    public void deleteByName(String word);
 }

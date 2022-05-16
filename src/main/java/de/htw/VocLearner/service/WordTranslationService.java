@@ -27,10 +27,7 @@ class WordTranslationService {
     @Autowired
     UebersetzungService uebersetzungService;
 
-    enum results{
-        SUCCESS,
-        NOT_SUCCESS
-    }
+
 
     //insert word and its translation into database
     public WortEntity saveWordAndTranslation(WordTranslation wordTranslation){
@@ -43,6 +40,7 @@ class WordTranslationService {
 
     //delete the word und its transtaltions from our database
     public void deleteWordAndTranslation(Wort wort){
+
         wortRepository.deleteByName(wort.getBezeichnung());
     }
 
