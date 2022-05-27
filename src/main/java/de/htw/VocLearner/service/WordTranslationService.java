@@ -15,6 +15,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,40 +23,65 @@ import java.util.stream.Collectors;
 public
 class WordTranslationService {
 
-    private final WortRepository wortRepository;
+    @Autowired
+    WortRepository wortRepository;
 
-    public WordTranslationService(WortRepository wortRepository) {
-        this.wortRepository = wortRepository;
+
+    @Autowired
+    UebersetzungRepository uebersetzungRepository;
+
+
+    public boolean checkWord(WordTranslation wordTranslation){
+        if(wortRepository.findByName(wordTranslation.getWord()) == null) return true;
+        else return false;
     }
 
-
-    //insert word and its translation into database
-    public WortEntity saveWordAndTranslation(WordTranslation wordTranslation){
-        var wort = new WortEntity(wordTranslation.getWord(),wordTranslation.getLanguage());
-        var translation = new UebersetzungEntity(wordTranslation.getTranslation(),wordTranslation.getTransLanguage(),1.0f);
-        wort.add(translation);
-        return wortRepository.save(wort);
-
+    public boolean checkUebersetzung(WordTranslation wordTranslation){
+        if(uebersetzungRepository.findByName(wordTranslation.getTranslation()) != null) return true;
+        else return false;
     }
 
-    //delete the word und its transtaltions from our database
-    public void deleteWordAndTranslation(String wort){
-        wortRepository.deleteByName(wort);
+    public void deleteWordTranslation(String word){
+        var helWortEntity = wortRepository.findByName(word);
+        Set<UebersetzungEntity> uebersetzungEntities = helWortEntity.getUebersetzungEntities();
+        for(UebersetzungEntity uebersetzungEntity : uebersetzungEntities){
+            uebersetzungRepository.deleteById(uebersetzungEntity.getId());
+        }
+
+        wortRepository.deleteByName(word);
     }
 
-    //fetch ten words and their translation
-    public List<Wort> fetchWordsFromDatabase(int factor) {
-        List<WortEntity> WordsForGame = wortRepository.findAll();
-        return WordsForGame.stream()
-                .map(this::transformEntity).
-                collect(Collectors.toList());
+    public Wort updateWordTranslation(WordTranslation wordTranslation){
+        Wort returnedEntity = null;
+        var wordEntity = wortRepository.findByName(wordTranslation.getWord());
+        var uebersetzung = new UebersetzungEntity(wordTranslation.getTranslation(),wordTranslation.getTransLanguage(),1);
+        if(checkWord(wordTranslation) == true) {
+            wordEntity.add(uebersetzung);
+            returnedEntity = transformEntity(wortRepository.save(wordEntity));
+
+        }else{
+            if(checkUebersetzung(wordTranslation) == false){
+                var helpEntity = wordEntity;
+                helpEntity.add(uebersetzung);
+                for(UebersetzungEntity uebersetzungEntity : wordEntity.getUebersetzungEntities()){
+                    uebersetzungRepository.delete(uebersetzungEntity);
+                }
+                wortRepository.delete(wordEntity);
+                returnedEntity = transformEntity(wortRepository.save(helpEntity));
+            }
+        }
+        return returnedEntity;
     }
+
 
     private Wort transformEntity(WortEntity wortEntity) {
         return new Wort(
                 wortEntity.getId(),
                 wortEntity.getBezeichnung(),
-                wortEntity.getSprache()
+                wortEntity.getSprache(),
+                wortEntity.getUebersetzungEntities()
         );
     }
+
+
 }

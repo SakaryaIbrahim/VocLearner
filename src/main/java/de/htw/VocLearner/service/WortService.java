@@ -60,7 +60,8 @@ public class WortService {
         return new Wort(
                 wortEntity.getId(),
                 wortEntity.getBezeichnung(),
-                wortEntity.getSprache()
+                wortEntity.getSprache(),
+                wortEntity.getUebersetzungEntities()
         );
     }
 }

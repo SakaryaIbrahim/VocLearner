@@ -13,3 +13,11 @@ wenn er die Übersetzung jedoch falsch eingetragen hat, dann kommt diese Vokabel
 eingetragen hat ist also richtig.
 - Das Ganze soll so einfach und selbsterklärend wie möglich gehalten werden -> Keine großartigen Startseiten mit 
 Tonnen von Text etc.
+
+# Endpoints 
+ - 'api/v1/wordTranslation'
+    POST
+ - 'api/v1/vocabulary'
+    GET
+ - 'api/v1/word'
+    DELETE

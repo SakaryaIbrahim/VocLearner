@@ -5,6 +5,7 @@ import de.htw.VocLearner.service.UebersetzungService;
 import de.htw.VocLearner.service.WordTranslationService;
 import de.htw.VocLearner.service.WortService;
 import de.htw.VocLearner.web.api.*;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -89,16 +90,17 @@ public class TestRestController {
         return successful ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
     }
 
-    @PostMapping(path = "api/v1/wordtranslation")
-    public ResponseEntity<WortEntity> insertNewInfoIntoDb(@RequestBody WordTranslation wordTranslation) {
-        WortEntity newWordTran = wordTranslationService.saveWordAndTranslation(wordTranslation);
-        return newWordTran != null ? ResponseEntity.ok(newWordTran) : ResponseEntity.notFound().build();
+
+    @PostMapping(path = "/api/v1/wordtranslation/add")
+    public ResponseEntity<Wort> insertNewValues(@RequestBody WordTranslation wordTranslation){
+        var newEntity = wordTranslationService.updateWordTranslation(wordTranslation);
+        return newEntity != null ? ResponseEntity.ok(newEntity) : ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping(path = "api/v1/wordtranslation")
-    public void deleteSomeWordsFromDb(@RequestBody String wort) {
-         wordTranslationService.deleteWordAndTranslation(wort);
-    }
+   @DeleteMapping(path ="/api/v1/wordtranslation/delete")
+    public void removeWordAndTranslation(@RequestBody String word){
+        wordTranslationService.deleteWordTranslation(word);
+   }
 
 }
 

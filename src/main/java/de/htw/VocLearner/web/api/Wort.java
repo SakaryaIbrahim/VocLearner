@@ -1,15 +1,23 @@
 package de.htw.VocLearner.web.api;
 
+import de.htw.VocLearner.persistence.UebersetzungEntity;
+
+import java.util.HashSet;
+import java.util.Set;
+
 public class Wort {
 
     private long id;
     private String bezeichnung;
     private String sprache;
 
-    public Wort(long id, String bezeichnung, String sprache) {
+    private Set<UebersetzungEntity> uebersetzungSet = new HashSet<>();
+
+    public Wort(long id, String bezeichnung, String sprache,Set<UebersetzungEntity> uebersetzungSet) {
         this.id = id;
         this.bezeichnung = bezeichnung;
         this.sprache = sprache;
+        this.uebersetzungSet = uebersetzungSet;
     }
 
     public long getId() {
@@ -34,5 +42,13 @@ public class Wort {
 
     public void setSprache(String sprache) {
         this.sprache = sprache;
+    }
+
+    public Set<UebersetzungEntity> getUebersetzungSet() {
+        return uebersetzungSet;
+    }
+
+    public void setUebersetzungSet(Set<UebersetzungEntity> uebersetzungSet) {
+        this.uebersetzungSet = uebersetzungSet;
     }
 }
