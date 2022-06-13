@@ -73,6 +73,19 @@ class WordTranslationService {
         return returnedEntity;
     }
 
+    public List<Wort> findAll() {
+        List<WortEntity> words = wortRepository.findAll();
+        return words.stream()
+                .map(this::transformEntity)
+                .collect(Collectors.toList());
+    }
+
+
+
+    public Wort findById(Long id) {
+        var wortEntity = wortRepository.findById(id);
+        return wortEntity.map(this::transformEntity).orElse(null);
+    }
 
     private Wort transformEntity(WortEntity wortEntity) {
         return new Wort(
