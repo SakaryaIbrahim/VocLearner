@@ -26,13 +26,13 @@ public class TestRestController {
         return wort != null ? ResponseEntity.ok(wort) : ResponseEntity.notFound().build();
     }
 
-    @PostMapping(path = "/api/v1/wordtranslation/add")
+    @PostMapping(path = "/api/v1/wordtranslation")
     public ResponseEntity<Wort> insertNewValues(@RequestBody WordTranslation wordTranslation){
         var newEntity = wordTranslationService.updateWordTranslation(wordTranslation);
         return newEntity != null ? ResponseEntity.ok(newEntity) : ResponseEntity.notFound().build();
     }
 
-   @DeleteMapping(path ="/api/v1/wordtranslation/delete")
+   @DeleteMapping(path ="/api/v1/wordtranslation")
     public void removeWordAndTranslation(@RequestBody String word){
         wordTranslationService.deleteWordTranslation(word);
    }

@@ -5,7 +5,7 @@ import de.htw.VocLearner.persistence.UebersetzungEntity;
 import de.htw.VocLearner.persistence.UebersetzungRepository;
 import de.htw.VocLearner.persistence.WortEntity;
 import de.htw.VocLearner.persistence.WortRepository;
-import de.htw.VocLearner.web.api.Uebersetzung;
+
 import de.htw.VocLearner.web.api.WordTranslation;
 import de.htw.VocLearner.web.api.Wort;
 import org.springframework.beans.factory.annotation.Autowired;
