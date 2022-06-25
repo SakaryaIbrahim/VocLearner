@@ -1,5 +1,6 @@
 package de.htw.VocLearner.web.api;
 
+
 public class WordTranslation {
     private String word ;
     private String language ;
@@ -12,6 +13,7 @@ public class WordTranslation {
         this.translation = translation;
         this.transLanguage = transLanguage;
     }
+
 
     public String getWord() {
         return word;

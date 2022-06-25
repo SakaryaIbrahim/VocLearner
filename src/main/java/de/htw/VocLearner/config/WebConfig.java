@@ -13,11 +13,9 @@ public class WebConfig implements WebMvcConfigurer{
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("http://localhost:8080/api/**")
-                .allowedHeaders("*")
+        registry.addMapping("/api/**")
                 .allowedMethods("*")
                 .allowedOrigins(
-                        "https://voclearner-frontend.herokuapp.com",
                         "http://localhost:3000"
                 );
     }
