@@ -1,4 +1,4 @@
-package config;
+package de.htw.VocLearner.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -13,11 +13,12 @@ public class WebConfig implements WebMvcConfigurer{
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/api/**")
+        registry.addMapping("http://localhost:8080/api/**")
                 .allowedHeaders("*")
                 .allowedMethods("*")
                 .allowedOrigins(
-                        "http://localhost:3000/**"
+                        "https://voclearner-frontend.herokuapp.com",
+                        "http://localhost:3000"
                 );
     }
 
