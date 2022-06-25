@@ -14,6 +14,10 @@ public class Uebersetzung {
         this.wahrscheinlichkeit = wahrscheinlichkeit;
     }
 
+    public Uebersetzung(){
+
+    }
+
     public long getId() {
         return id;
     }

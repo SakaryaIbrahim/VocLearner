@@ -28,13 +28,18 @@ public class TestRestController {
 
     @PostMapping(path = "/api/v1/wordtranslation")
     public ResponseEntity<Wort> insertNewValues(@RequestBody WordTranslation wordTranslation){
-        var newEntity = wordTranslationService.updateWordTranslation(wordTranslation);
+        var newEntity = wordTranslationService.insertWordTranslation(wordTranslation);
         return newEntity != null ? ResponseEntity.ok(newEntity) : ResponseEntity.notFound().build();
     }
 
    @DeleteMapping(path ="/api/v1/wordtranslation")
     public void removeWordAndTranslation(@RequestBody String word){
         wordTranslationService.deleteWordTranslation(word);
+   }
+
+   @PostMapping(path = "api/v1/uebersetzung")
+    public void updateWahrscheinlichkeit(@RequestBody Uebersetzung uebersetzung){
+        wordTranslationService.updateProbability(uebersetzung.getWahrscheinlichkeit(),uebersetzung.getId());
    }
 
 }

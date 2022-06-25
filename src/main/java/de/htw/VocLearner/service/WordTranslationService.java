@@ -31,47 +31,44 @@ class WordTranslationService {
     UebersetzungRepository uebersetzungRepository;
 
 
-    public boolean checkWord(WordTranslation wordTranslation){
-        if(wortRepository.findByName(wordTranslation.getWord()) == null) return true;
-        else return false;
-    }
-
-    public boolean checkUebersetzung(WordTranslation wordTranslation){
-        if(uebersetzungRepository.findByName(wordTranslation.getTranslation()) != null) return true;
-        else return false;
-    }
 
     public void deleteWordTranslation(String word){
         var helWortEntity = wortRepository.findByName(word);
-        Set<UebersetzungEntity> uebersetzungEntities = helWortEntity.getUebersetzungEntities();
-        for(UebersetzungEntity uebersetzungEntity : uebersetzungEntities){
-            uebersetzungRepository.deleteById(uebersetzungEntity.getId());
+
+        if(helWortEntity != null){
+            Set<UebersetzungEntity> uebersetzungEntities = helWortEntity.getUebersetzungEntities();
+            for(UebersetzungEntity uebersetzungEntity : uebersetzungEntities){
+                uebersetzungRepository.deleteById(uebersetzungEntity.getId());
+            }
+
+            wortRepository.deleteByName(word);
         }
 
-        wortRepository.deleteByName(word);
     }
 
-    public Wort updateWordTranslation(WordTranslation wordTranslation){
-        Wort returnedEntity = null;
+    public Wort insertWordTranslation(WordTranslation wordTranslation){
+        Wort returnedEnity = null;
         var wordEntity = wortRepository.findByName(wordTranslation.getWord());
         var uebersetzung = new UebersetzungEntity(wordTranslation.getTranslation(),wordTranslation.getTransLanguage(),1);
-        if(checkWord(wordTranslation) == true) {
-            wordEntity.add(uebersetzung);
-            returnedEntity = transformEntity(wortRepository.save(wordEntity));
 
+        if(wordEntity == null){
+            wordEntity = new WortEntity(wordTranslation.getWord(),wordTranslation.getLanguage());
+            wordEntity.add(uebersetzung);
+            wortRepository.save(wordEntity);
+            returnedEnity = transformEntity(wordEntity);
         }else{
-            if(checkUebersetzung(wordTranslation) == false){
-                var helpEntity = wordEntity;
-                helpEntity.add(uebersetzung);
-                for(UebersetzungEntity uebersetzungEntity : wordEntity.getUebersetzungEntities()){
-                    uebersetzungRepository.delete(uebersetzungEntity);
-                }
-                wortRepository.delete(wordEntity);
-                returnedEntity = transformEntity(wortRepository.save(helpEntity));
+            if(wordEntity.getUebersetzungEntities().contains(uebersetzung)){
+
+            }else{
+            wordEntity.add(uebersetzung);
+            wortRepository.save(wordEntity);
+            returnedEnity = transformEntity(wordEntity);
             }
         }
-        return returnedEntity;
+        return returnedEnity;
     }
+
+
 
     public List<Wort> findAll() {
         List<WortEntity> words = wortRepository.findAll();
@@ -86,6 +83,11 @@ class WordTranslationService {
         var wortEntity = wortRepository.findById(id);
         return wortEntity.map(this::transformEntity).orElse(null);
     }
+
+    public void updateProbability(float prob ,long id){
+        uebersetzungRepository.updateWahrscheinlichkeitById(prob, id);
+    }
+
 
     private Wort transformEntity(WortEntity wortEntity) {
         return new Wort(

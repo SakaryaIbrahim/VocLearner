@@ -20,6 +20,9 @@ public class Wort {
         this.uebersetzungSet = uebersetzungSet;
     }
 
+    public Wort(){
+
+    }
     public long getId() {
         return id;
     }
