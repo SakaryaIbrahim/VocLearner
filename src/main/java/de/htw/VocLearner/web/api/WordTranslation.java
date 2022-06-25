@@ -14,6 +14,9 @@ public class WordTranslation {
         this.transLanguage = transLanguage;
     }
 
+    public WordTranslation(){
+
+    }
 
     public String getWord() {
         return word;
