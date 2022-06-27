@@ -39,6 +39,7 @@ public class WortEntity {
         return id;
     }
 
+    public void setId(Long id) {this.id = id;}
     public String getBezeichnung() {
         return bezeichnung;
     }
