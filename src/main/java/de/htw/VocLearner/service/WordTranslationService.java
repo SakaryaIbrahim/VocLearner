@@ -6,6 +6,7 @@ import de.htw.VocLearner.persistence.UebersetzungRepository;
 import de.htw.VocLearner.persistence.WortEntity;
 import de.htw.VocLearner.persistence.WortRepository;
 
+import de.htw.VocLearner.web.api.Uebersetzung;
 import de.htw.VocLearner.web.api.WordTranslation;
 import de.htw.VocLearner.web.api.Wort;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,8 +85,9 @@ class WordTranslationService {
         return wortEntity.map(this::transformEntity).orElse(null);
     }
 
-    public void updateProbability(float prob ,long id){
-        uebersetzungRepository.updateWahrscheinlichkeitById(prob, id);
+    public Uebersetzung updateProbability(Uebersetzung uebersetzung){
+        uebersetzungRepository.updateWahrscheinlichkeitById(uebersetzung.getWahrscheinlichkeit(), uebersetzung.getId());
+        return uebersetzung;
     }
 
 

@@ -3,6 +3,7 @@ package de.htw.VocLearner.web;
 import de.htw.VocLearner.service.WordTranslationService;
 import de.htw.VocLearner.web.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.support.ResourcePropertiesPersister;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,8 +39,8 @@ public class TestRestController {
    }
 
    @PostMapping(path = "api/v1/uebersetzung")
-    public void updateWahrscheinlichkeit(@RequestBody Uebersetzung uebersetzung){
-        wordTranslationService.updateProbability(uebersetzung.getWahrscheinlichkeit(),uebersetzung.getId());
+    public ResponseEntity<Uebersetzung> updateWahrscheinlichkeit(@RequestBody Uebersetzung uebersetzung){
+        return ResponseEntity.ok(wordTranslationService.updateProbability(uebersetzung));
    }
 
 }
