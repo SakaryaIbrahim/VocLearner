@@ -85,9 +85,12 @@ class WordTranslationService {
         return wortEntity.map(this::transformEntity).orElse(null);
     }
 
-    public Uebersetzung updateProbability(Uebersetzung uebersetzung){
-        uebersetzungRepository.updateWahrscheinlichkeitById(uebersetzung.getWahrscheinlichkeit(), uebersetzung.getId());
-        return uebersetzung;
+    public Wort updateProbability(Wort wort){
+        for(UebersetzungEntity uebersetzungEntity: wort.getUebersetzungSet()){
+            uebersetzungRepository.updateWahrscheinlichkeitById(uebersetzungEntity.getWahrscheinlichkeit(), uebersetzungEntity.getId());
+        }
+
+        return wort;
     }
 
 
