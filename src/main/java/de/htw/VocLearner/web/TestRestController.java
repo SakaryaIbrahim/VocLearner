@@ -39,7 +39,7 @@ public class TestRestController {
    }
 
    @PostMapping(path = "api/v1/uebersetzung")
-    public ResponseEntity<Uebersetzung> updateWahrscheinlichkeit(@RequestBody Wort wort){
+    public ResponseEntity<Wort> updateWahrscheinlichkeit(@RequestBody Wort wort){
         return ResponseEntity.ok(wordTranslationService.updateProbability(wort));
    }
 
