@@ -16,6 +16,7 @@ public class WebConfig implements WebMvcConfigurer{
         registry.addMapping("/api/**")
                 .allowedMethods("*")
                 .allowedOrigins(
+                        "https://voclearner-frontend.herokuapp.com/",
                         "http://localhost:3000"
                 );
     }
