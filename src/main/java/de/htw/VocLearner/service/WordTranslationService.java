@@ -33,7 +33,7 @@ class WordTranslationService {
 
 
 
-    public void deleteWordTranslation(String word){
+    public String deleteWordTranslation(String word){
         var helWortEntity = wortRepository.findByName(word);
 
         if(helWortEntity != null){
@@ -44,7 +44,7 @@ class WordTranslationService {
 
             wortRepository.deleteByName(word);
         }
-
+        return "SUCESS";
     }
 
     public Wort insertWordTranslation(WordTranslation wordTranslation){

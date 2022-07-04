@@ -9,7 +9,9 @@ import de.htw.VocLearner.web.api.Uebersetzung;
 import de.htw.VocLearner.web.api.WordTranslation;
 import de.htw.VocLearner.web.api.Wort;
 import org.json.JSONObject;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -38,6 +40,7 @@ public class RestControllerTest {
     @Autowired
     ObjectMapper objectMapper;
     @Test
+    @DisplayName("should read the Words from the database")
     public void testGetWords() throws Exception {
         //Test daten und service mock
         Set<UebersetzungEntity> uebersetzungEntities = new HashSet<>();
@@ -55,6 +58,7 @@ public class RestControllerTest {
     }
 
     @Test
+    @DisplayName("should add new Word with translation to database")
     public void testinsertNewValues () throws Exception {
 
         Set<UebersetzungEntity> uebersetzungEntities = new HashSet<>();
@@ -79,17 +83,34 @@ public class RestControllerTest {
 
 
     @Test
-    void testUpdateWahrscheinlichkeit () throws Exception {
-        Uebersetzung uebersetzung = new Uebersetzung(12L,"run","english",0.3F);
+    @DisplayName("test delete")
+    void testDeleteWord () throws Exception {
+        Mockito.when(wordTranslationService.deleteWordTranslation("run")).thenReturn("SUCESS");
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.delete("/api/v1/wordtranslation")
+                .content(String.valueOf("run"));
 
-        when(wordTranslationService.updateProbability(uebersetzung)).thenReturn(uebersetzung);
+        mockMvc.perform(mockRequest)
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("update von Wahrscheinlichkeit")
+    void testUpdateWahrscheinlichkeit () throws Exception {
+        Set<UebersetzungEntity> uebersetzungEntities = new HashSet<>();
+        Wort wort = new Wort(24L,"run","english",uebersetzungEntities);
+        WordTranslation wordTranslation = new WordTranslation("rdkajkd","english","jakdjkasjdf","deutsch");
+        UebersetzungEntity uebersetzungEntity = new UebersetzungEntity("jakdjkasjdf","deutsch",1);
+        uebersetzungEntity.setId(15L);
+        uebersetzungEntities.add(uebersetzungEntity);
+
+        when(wordTranslationService.updateProbability(wort)).thenReturn(wort);
 
         String expected = "{\"id\":12,\"uebersetzung\":\"run\",\"sprache\":\"english\",\"wahrscheinlichkeit\":0.3}";
 
         this.mockMvc.perform(post("/api/v1/uebersetzung")
                         .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
-                .content(this.objectMapper.writeValueAsString(uebersetzung)))
+                .content(this.objectMapper.writeValueAsString(wort)))
                 .andExpect(status().isOk());
     }
 

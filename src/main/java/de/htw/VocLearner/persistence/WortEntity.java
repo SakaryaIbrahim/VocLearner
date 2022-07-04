@@ -63,4 +63,14 @@ public class WortEntity {
     public void add(UebersetzungEntity uebersetzungEntity){
        if(!uebersetzungEntities.contains(uebersetzungEntity)) uebersetzungEntities.add(uebersetzungEntity);
     }
+
+    @Override
+    public String toString() {
+        return "WortEntity{" +
+                "id=" + id +
+                ", bezeichnung='" + bezeichnung + '\'' +
+                ", sprache='" + sprache + '\'' +
+                ", uebersetzungEntities=" + uebersetzungEntities +
+                '}';
+    }
 }

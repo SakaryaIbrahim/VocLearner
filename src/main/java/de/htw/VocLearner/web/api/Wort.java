@@ -54,4 +54,14 @@ public class Wort {
     public void setUebersetzungSet(Set<UebersetzungEntity> uebersetzungSet) {
         this.uebersetzungSet = uebersetzungSet;
     }
+
+    @Override
+    public String toString() {
+        return "Wort{" +
+                "id=" + id +
+                ", bezeichnung='" + bezeichnung + '\'' +
+                ", sprache='" + sprache + '\'' +
+                ", uebersetzungSet=" + uebersetzungSet +
+                '}';
+    }
 }

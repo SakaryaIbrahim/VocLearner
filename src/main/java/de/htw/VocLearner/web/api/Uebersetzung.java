@@ -51,4 +51,13 @@ public class Uebersetzung {
         this.wahrscheinlichkeit = wahrscheinlichkeit;
     }
 
+    @Override
+    public String toString() {
+        return "Uebersetzung{" +
+                "id=" + id +
+                ", uebersetzung='" + uebersetzung + '\'' +
+                ", sprache='" + sprache + '\'' +
+                ", wahrscheinlichkeit=" + wahrscheinlichkeit +
+                '}';
+    }
 }

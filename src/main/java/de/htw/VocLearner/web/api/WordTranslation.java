@@ -49,4 +49,14 @@ public class WordTranslation {
     public void setTransLanguage(String transLanguage) {
         this.transLanguage = transLanguage;
     }
+
+    @Override
+    public String toString() {
+        return "WordTranslation{" +
+                "word='" + word + '\'' +
+                ", language='" + language + '\'' +
+                ", translation='" + translation + '\'' +
+                ", transLanguage='" + transLanguage + '\'' +
+                '}';
+    }
 }

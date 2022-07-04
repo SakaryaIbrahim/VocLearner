@@ -68,7 +68,13 @@ public class UebersetzungEntity {
         this.wahrscheinlichkeit = wahrscheinlichkeit;
     }
 
-
-
-
+    @Override
+    public String toString() {
+        return "UebersetzungEntity{" +
+                "id=" + id +
+                ", uebersetzung='" + uebersetzung + '\'' +
+                ", sprache='" + sprache + '\'' +
+                ", wahrscheinlichkeit=" + wahrscheinlichkeit +
+                '}';
+    }
 }
