@@ -32,6 +32,12 @@ public class WortEntity {
         this.sprache = sprache;
     }
 
+    public WortEntity(long id, String bezeichnung, String sprache, Set<UebersetzungEntity> uebersetzungEntities){
+       this.id = id;
+       this.bezeichnung = bezeichnung;
+       this.sprache = sprache;
+       this.uebersetzungEntities = uebersetzungEntities;
+    }
     protected WortEntity(){
     }
 

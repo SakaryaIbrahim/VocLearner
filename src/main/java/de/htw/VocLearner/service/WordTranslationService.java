@@ -32,9 +32,12 @@ class WordTranslationService {
     UebersetzungRepository uebersetzungRepository;
 
 
+    public WortEntity findUsingName (String word){
+        return wortRepository.findByName(word);
+    }
 
     public String deleteWordTranslation(String word){
-        var helWortEntity = wortRepository.findByName(word);
+        var helWortEntity = findUsingName(word);
 
         if(helWortEntity != null){
             Set<UebersetzungEntity> uebersetzungEntities = helWortEntity.getUebersetzungEntities();
